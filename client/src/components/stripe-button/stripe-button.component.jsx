@@ -27,7 +27,7 @@ const StripeCheckoutButton = ({ price }) => {
         return (
             <StripeCheckout
                 label= "Pay Now"
-                name='Barishal Enterprize'
+                name='Daily solution'
                 billingAddress
                 shippingAddress
                 image= "https://svgshare.com/i/CUz.svg"
