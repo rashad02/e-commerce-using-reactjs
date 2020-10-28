@@ -6,4 +6,20 @@
   .title {
     margin: 10px 0;
   }
+
+  .user-type-section{
+    width: max-content;
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    padding: 1rem;
+  
+    .user-type-text{
+      width: 30%;
+      display: inline-block;
+      margin-top: 2rem;
+    }
+  }
+
 }
+

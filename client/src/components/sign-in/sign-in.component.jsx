@@ -1,7 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import {auth,signInWithGoogle} from "../../firebase/firebase.util";
+import {setCurrentUser} from "../../redux/user/user.action";
+import {loginUser} from "../../redux/user/user.util";
 
 import "./sign-in.styles.scss";
 
@@ -18,11 +21,17 @@ class SignInSignOut extends React.Component{
 
     handleSubmit = async event => {
         event.preventDefault();
-        
+
+        const {setCurrentUser} = this.props;
         const {email, password} = this.state;
 
         try{
-            await auth.signInWithEmailAndPassword(email, password);
+            new Promise((resolve, reject) => {
+                loginUser({email, password}).then((response) => {
+                   setCurrentUser(response);
+                   resolve(response);
+                });
+             });
 
             this.setState({email: "", password: ""});
 
@@ -35,6 +44,12 @@ class SignInSignOut extends React.Component{
         const {name, value} = event.target;
 
         this.setState({ [name] : value});
+    }
+    componentWillUnmount() {
+        // fix Warning: Can't perform a React state update on an unmounted component
+        this.setState = (state,callback)=>{
+            return;
+        };
     }
 
 
@@ -52,7 +67,7 @@ class SignInSignOut extends React.Component{
                 <FormInput type="password"  value= {password} name="password" handleChange= {this.handleChange} label= "Password" required />
                 <div className="buttons">
                     <CustomButton type="submit"> Sign In</CustomButton>
-                <CustomButton onClick= {signInWithGoogle} googleSignIn> Sign In with Google</CustomButton>
+                {/* <CustomButton onClick= {signInWithGoogle} googleSignIn> Sign In with Google</CustomButton> */}
                 </div>
                 </form>
             </div> 
@@ -60,4 +75,8 @@ class SignInSignOut extends React.Component{
     }
 }
 
-export default SignInSignOut;
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+export default connect(null, mapDispatchToProps)(SignInSignOut);

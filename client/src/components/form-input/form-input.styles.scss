@@ -11,7 +11,7 @@ $main-color: black;
   position: relative;
   margin: 45px 0;
 
-  .form-input {
+  .form-input,  .date-picker{
     background: none;
     background-color: white;
     color: $sub-color;
@@ -28,7 +28,7 @@ $main-color: black;
       outline: none;
     }
 
-    &:focus ~ .form-input-label {
+    &:focus ~ .form-input-label, .react-datepicker-ignore-onclickoutside {
       @include shrinkLabel();
     }
   }
@@ -52,3 +52,50 @@ $main-color: black;
     }
   }
 }
+
+
+.date-picker {
+  display: block;
+}
+.react-datepicker-wrapper{
+  width: -webkit-fill-available !important;
+  border: none !important;
+  border-radius: .25rem !important;
+  line-height: 1.5 !important;
+  color: #495057 !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  line-height: 1.5 !important;
+  input {
+      width: 100% !important;
+      height: 2.7rem !important;
+      border: hidden !important;
+      border-radius: 0 !important;
+      margin-right: 0 !important;
+  }
+
+  &:focus {
+    input {
+     
+      border: hidden !important;
+      border-radius: 0 !important;
+      margin-right: 0 !important;
+  }
+    outline: none;
+    // border: none !important;
+    // border-bottom: 1px solid $sub-color !important;
+  }
+ 
+}
+
+.date-picker:focus {
+  .react-datepicker-ignore-onclickoutside {
+    @include shrinkLabel();
+  }
+}
+
+*:focus {
+  outline: none;
+  @include shrinkLabel();
+  }
+

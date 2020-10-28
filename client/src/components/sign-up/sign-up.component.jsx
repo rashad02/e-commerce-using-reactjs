@@ -1,27 +1,38 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-import {auth, createUserProfileDocument} from "../../firebase/firebase.util";
+import ToggleSwitch from "../custom-button/toggle-button.component";
+
+import {setCurrentUser, userTypeToggle} from "../../redux/user/user.action";
+import {registerUser} from "../../redux/user/user.util";
 
 import './sign-up.styles.scss';
 
 class SignUp extends React.Component{
+
     constructor(){
         super();
 
         this.state = {
+            toggleChecked: false,
             displayName: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
+            type: "user"
         }
     }
+
+   
 
     handleSubmit = async event => {
         event.preventDefault();
 
-        const {displayName, email, password, confirmPassword} =this.state;
+        const {setCurrentUser} = this.props;
+
+        const {displayName, email, password, confirmPassword, type} =this.state;
 
         if(password !== confirmPassword){
             alert("Password not match");
@@ -29,19 +40,29 @@ class SignUp extends React.Component{
         } 
 
         try{
-            const {user} = await auth.createUserWithEmailAndPassword(email,password);
 
-            createUserProfileDocument (user, {displayName});
-
+            let user = {
+                name: displayName,
+                email,
+                password,
+                type
+            }
+            
+            new Promise((resolve, reject) => {
+                registerUser(user).then((response) => {
+                    setCurrentUser(response);
+                   resolve(response);
+                });
+             });
+           
             this.setState({
                 displayName: '',
                 email: '',
                 password: '',
-                confirmPassword: ''
-            })
-
+                confirmPassword: '',
+            });
         } catch(error) {
-            console.error(error)
+            console.log(error);
         }
 
     };
@@ -52,11 +73,20 @@ class SignUp extends React.Component{
         this.setState({ [name] : value});
     }
 
+    onToggleChange = newValue => {
+        const {userTypeToggle} = this.props;
+
+        if(newValue === 'user') this.setState({type: 'admin'});
+        else this.setState({type: 'user'});;
+    
+        userTypeToggle(newValue);
+    }
+
 
     render(){
 
-        const {displayName, email, password, confirmPassword} =this.state;
-
+        const {displayName, email, password, confirmPassword, type} =this.state;
+        
         return (
             <div className= "sign-up">
                 <h2 className="title"> I do not have an account</h2>
@@ -68,9 +98,14 @@ class SignUp extends React.Component{
                 <FormInput type="password"  value= {password} name="password" handleChange= {this.handleChange} label= "Password" required />
                 <FormInput type="password"  value= {confirmPassword} name="confirmPassword" handleChange= {this.handleChange} label= "Confirm Password" required />
                 
+                <div className="user-type-section">
+                    <div className="user-type-text">Choose user type: </div>
+                    <ToggleSwitch isOn={type === 'user' ? false: true} onColor="#EF476F"offText={'User'} onText={'Admin'} onChange={(e) =>this.onToggleChange(type)}/>
+                </div>
+                
                 
                 <div className="buttons">
-                <CustomButton type="submit"> Sign Up</CustomButton>
+                <CustomButton id="custom-toggle" type="submit"> Sign Up</CustomButton>
                 </div>
                 </form>
             </div> 
@@ -78,4 +113,11 @@ class SignUp extends React.Component{
     }
 }
 
-export default SignUp;
+
+
+const mapDispatchToProps = dispatch => ({
+    setCurrentUser: user => dispatch(setCurrentUser(user)),
+    userTypeToggle: type => dispatch(userTypeToggle(type))
+})
+
+export default connect(null, mapDispatchToProps)(SignUp);
