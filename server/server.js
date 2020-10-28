@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(cors());
 
-const connect = mongoose.connect('mongodb://localhost:27017/local', {useUnifiedTopology: true, useNewUrlParser: true});
+const connect = mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/daily-solution', {useUnifiedTopology: true, useNewUrlParser: true});
 
 connect.then( db => {
     console.log("Connected Mongo server! ");
