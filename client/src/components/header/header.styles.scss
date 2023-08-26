@@ -1,28 +1,42 @@
 .header {
-    height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  align-items: center;
+  padding: 0 25px;
+
+  .logo-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 25px;
-  
-    .logo-container {
-      height: 100%;
-      width: 70px;
-      padding: 25px;
-    }
-  
-    .options {
-      width: 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-     
-      .option {
-        padding: 10px 15px;
-        cursor: pointer;
-        text-decoration: none !important;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    transform: translate(33%, 0);
+  }
+
+  .options {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .option {
+      padding: 10px 15px;
+      cursor: pointer;
+      text-decoration: none !important;
+
+      svg {
+        width: 24px;
+        height: 24px;
+        margin-top: 8px;
       }
     }
+
+
+    .account {
+      // margin-top: 8px;
+    }
   }
-  
+}
