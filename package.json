@@ -9,10 +9,10 @@
   "scripts": {
     "client": "cd client && npm start",
     "server": "cd server && node server.js",
-    "build": "cd server && node server.js && cd client && npm run build",
+    "build": "cd client && npm run build",
     "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
     "start": "cd server && node server.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "netlify-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run server"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.4",
