@@ -9,10 +9,8 @@
   .logo-container {
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     min-height: 120px;
-    transform: translate(33%, 0);
   }
 
   .options {
@@ -36,7 +34,7 @@
 
 
     .account {
-      // margin-top: 8px;
+      margin-top: 8px;
     }
   }
 }

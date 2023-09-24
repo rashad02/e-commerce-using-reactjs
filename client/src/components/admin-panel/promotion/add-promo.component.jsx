@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from "reselect";
 import moment from 'moment'
@@ -15,46 +15,78 @@ import { addPromo } from "../../../redux/admin/admin.util";
 
 import './add-promo.styles.scss';
 
-class AddPromo extends React.Component {
+// class AddPromo extends React.Component {
 
-    constructor(props) {
-        super();
+//     constructor(props) {
+//         super();
 
-        this.state = {
-            promoId: "",
-            promoCode: "",
-            discountRate: "",
-            useTime: "",
-            startDate: "",
-            endDate: ""
-        }
-    }
+//         this.state = {
+//             promoId: "",
+//             promoCode: "",
+//             discountRate: "",
+//             useTime: "",
+//             startDate: "",
+//             endDate: ""
+//         }
+//     }
 
-    handleChange = event => {
+
+
+//     componentDidMount() {
+
+//         let { location, isActivePromo } = this.props;
+//         let propItem = location && location.state ? location.state : {};
+
+
+//         this.setState({
+//             promoId: propItem.id,
+//             promoCode: propItem.promoCode,
+//             startDate: propItem && propItem.startDate ? moment(propItem.startDate).toDate() : "",
+//             endDate: propItem && propItem.endDate ? moment(propItem.endDate).toDate() : "",
+//             discountRate: propItem.discountRate,
+//             useTime: propItem.useTime,
+//         });
+
+//         isActivePromo(propItem.isActive)
+//     }
+
+//     render() {
+//         let { promoId, promoCode, startDate, endDate, discountRate, useTime } = this.state;
+
+//         let { isActivePromo, selectActivePromo } = this.props;
+
+
+//     }
+// }
+
+const AddPromo = ({ isActivePromo, selectActivePromo, promo =
+    {}, location }) => {
+    console.log("wow: ", promo, location)
+    let handleChange = event => {
 
         const { name, value } = event.target;
-
-        this.setState({ [name]: value });
+        console.log("wow: ", name, value, location)
+        promo[name] = value;
+        console.log("wow: ", promo)
     }
 
-    handleSubmit = event => {
+    let handleSubmit = event => {
 
         event.preventDefault();
 
-        const { promoId, promoCode, startDate, endDate, discountRate } = this.state;
 
         try {
 
             let promoData = {
-                promoCode,
-                startDate,
-                endDate,
-                discountRate
+                promoCode: promo.promoCode,
+                startDate: promo.startDate,
+                endDate: promo.endDate,
+                discountRate: promo.discountRate
             };
 
-            if (promoId) {
+            if (promo && promo.promoId) {
                 new Promise((resolve, reject) => {
-                    updatePromo(promoId, promoData).then((response) => {
+                    updatePromo(promo.promoId, promoData).then((response) => {
                         resolve(response);
                     });
                 });
@@ -66,69 +98,57 @@ class AddPromo extends React.Component {
                 });
             }
 
-            this.setState({
-                promoId: '',
-                promoCode: '',
-                startDate: "",
-                endDate: '',
-                discountRate: "",
-                useTime: '',
-                isActive: false
-            });
+            // this.setState({
+            promo.promoId = '';
+            promo.promoCode = '';
+            promo.startDate = "";
+            promo.endDate = '';
+            promo.discountRate = "";
+            promo.useTime = '';
+            promo.isActive = false;
+            // });
         } catch (error) {
             console.log(error);
         }
-
-
-
     }
 
-    componentDidMount() {
-
-        let { location, isActivePromo } = this.props;
+    useEffect(() => {
         let propItem = location && location.state ? location.state : {};
 
 
-        this.setState({
-            promoId: propItem.id,
-            promoCode: propItem.promoCode,
-            startDate: propItem && propItem.startDate ? moment(propItem.startDate).toDate() : "",
-            endDate:  propItem && propItem.endDate ? moment(propItem.endDate).toDate(): "",
-            discountRate: propItem.discountRate,
-            useTime: propItem.useTime,
-        });
+        // this.setState({
+        promo.promoId = propItem.id;
+        promo.promoCode = propItem.promoCode;
+        promo.startDate = propItem && propItem.startDate ? moment(propItem.startDate).toDate() : "";
+        promo.endDate = propItem && propItem.endDate ? moment(propItem.endDate).toDate() : "";
+        promo.discountRate = propItem.discountRate;
+        promo.useTime = propItem.useTime;
+        // });
 
         isActivePromo(propItem.isActive)
-    }
+    }, [isActivePromo]);
+    let { promoId, promoCode, startDate, endDate, discountRate, useTime } = promo
+    return (
+        <div className="form-container">
+            <form className="promo-form col-md-4" onSubmit={handleSubmit}>
+                <FormInput type="text" value={promoCode} name="promoCode" handleChange={handleChange} label="Promo Code" required />
+                <FormInput type="date" value={startDate} name="startDate" handleChange={handleChange} label="Start Date" required />
+                <FormInput type="date" value={endDate} name="endDate" handleChange={handleChange} label="End Date" required />
+                <FormInput type="text" value={discountRate} name="discountRate" handleChange={handleChange} label="Discount Rate" required />
+                <FormInput type="text" value={useTime} name="useTime" handleChange={handleChange} label="Use Time" />
 
-    render() {
-        let { promoId, promoCode, startDate, endDate, discountRate, useTime } = this.state;
+                <div className="promo-type-section">
+                    <div className="promo-type-text">Active </div>
+                    <ToggleSwitch isOn={selectActivePromo} onText={'Yes'} offText={"No"} onColor={'#00B55B'} onChange={(e) => isActivePromo(!selectActivePromo)} />
+                </div>
 
-        let { isActivePromo, selectActivePromo } = this.props;
-
-        return (
-            <div className="form-container">
-                <form className="promo-form col-md-4" onSubmit={this.handleSubmit}>
-                    <FormInput type="text" value={promoCode} name="promoCode" handleChange={this.handleChange} label="Promo Code" required />
-                    <FormInput type="date" value={startDate} name="startDate" handleChange={this.handleChange} label="Start Date" required />
-                    <FormInput type="date" value={endDate} name="endDate" handleChange={this.handleChange} label="End Date" required />
-                    <FormInput type="text" value={discountRate} name="discountRate" handleChange={this.handleChange} label="Discount Rate" required />
-                    <FormInput type="text" value={useTime} name="useTime" handleChange={this.handleChange} label="Use Time" />
-
-                    <div className="promo-type-section">
-                        <div className="promo-type-text">Active </div>
-                        <ToggleSwitch isOn={selectActivePromo} onText={'Yes'} offText={"No"} onColor={'#00B55B'} onChange={(e) => isActivePromo(!selectActivePromo)} />
-                    </div>
-
-                    <div className="buttons">
-                        <CustomButton id="custom-toggle" type="submit"> {promoId ? 'Update': 'Add'}</CustomButton>
-                    </div>
-                </form>
-            </div>
-        )
-    }
+                <div className="buttons">
+                    <CustomButton id="custom-toggle" type="submit"> {promoId ? 'Update' : 'Add'}</CustomButton>
+                </div>
+            </form>
+        </div>
+    )
 }
-
 
 const mapStateToProps = createStructuredSelector({
     selectActivePromo: selectIsActivePromo

@@ -30,7 +30,7 @@ const App = ({ currentUser, setCurrentuser }) => {
                 });
             }
         }, 1000);
-    });
+    }, [setCurrentuser]);
 
     return (
         <div>
@@ -38,7 +38,7 @@ const App = ({ currentUser, setCurrentuser }) => {
             <Routes>
                 <Route exact path="/" element={<HomePage />} />
                 <Route
-                    path="/admin"
+                    path="/admin/*"
                     element={
                         currentUser && currentUser.type === "admin" ? (
                             <Dashboard />
@@ -62,9 +62,17 @@ const App = ({ currentUser, setCurrentuser }) => {
                 <Route
                     exact
                     path="/checkout"
-                    render={() =>
-                        currentUser ? <Checkout /> : <Navigate to="/signin" />
+                    // render={() =>
+                    //     currentUser ? element={} : <Navigate to="/signin" />
+                    // }
+                    element={
+                        currentUser ? (
+                            <Checkout />
+                        ) : (
+                            <Navigate to="/signin" />
+                        )
                     }
+                // element={<Checkout />}
                 />
             </Routes>
             {/* </BrowserRouter> */}

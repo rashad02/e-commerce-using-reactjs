@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+// import { Routes, Route } from "react-router-dom";
 
 import { Container, Row, Col } from "react-bootstrap";
 import Sidebar from "../../components/admin-panel/sidebar/sidebar.components";
@@ -10,7 +10,9 @@ import withRouter from "../../components/withRouterComp";
 
 import "./admin-dashboard.scss";
 
-const Dash = ({ match }) => {
+const Dashboard = ({ router }) => {
+    console.log("aaa", router);
+    const { location } = router;
     return (
         <>
             <Container fluid>
@@ -19,24 +21,12 @@ const Dash = ({ match }) => {
                         <Sidebar />
                     </Col>
                     <Col xs={10}>
-                        <Route
-                            exact
-                            path={`${match.path}`}
-                            component={PromoList}
-                        />
-                        <Route
-                            path={`${match.path}/addpromo`}
-                            component={AddPromo}
-                        />
-                        <Route
-                            path={`${match.path}/orders`}
-                            component={OrderPage}
-                        />
+                        {location.pathname === '/admin/addpromo/' ? <AddPromo /> : location.pathname === '/admin/orders' ? <OrderPage /> : <PromoList />}
                     </Col>
                 </Row>
             </Container>
         </>
     );
 };
-const Dashboard = withRouter(Dash);
-export default Dashboard;
+// const  = withRouter(Dash);
+export default withRouter(Dashboard);

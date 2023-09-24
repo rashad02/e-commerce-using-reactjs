@@ -20,6 +20,11 @@
     position: absolute;
     top: 255px;
     display: none;
+
+    &:focus {
+      top: 200px !important;
+      font-size: 15px;
+    }
   }
 
   &:hover {

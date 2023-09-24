@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import CollectionItem from "../../components/collection-preview/collection-item.component";
@@ -11,20 +11,20 @@ const CollectionPage = ({ collection, setCollectionId }) => {
     params = useParams();
 
     console.log("a", params);
-    setCollectionId(params.collectionId);
-    // useEffect(() => {
-    //     // Update the document title using the browser API
 
-    // }, []);
+    useEffect(() => {
+        // Update the document title using the browser API
+        setCollectionId(params.collectionId);
+    }, [setCollectionId, params.collectionId]);
 
-    const { title, items } = collection;
+    // const { title, items } = collection;
     return (
         <div className="collection-page">
-            <h2 className="title">{title}</h2>
+            <h2 className="title">{collection ? collection.title : ""}</h2>
             <div className="items">
-                {items.map((item) => (
+                {collection && collection.items && collection.items.length ? collection.items.map((item) => (
                     <CollectionItem key={item.id} item={item} />
-                ))}
+                )) : ''}
             </div>
         </div>
     );
