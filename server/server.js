@@ -18,15 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-// let
-// MONGODB_URI = "mongodb+srv://daily-solution-db:DAtFo066IiXPMeoC@daily-solution-db.yqjsa.mongodb.net/daily-solution?retryWrites=true&w=majority"
-const username = encodeURIComponent("daily-solution-db");
-const password = encodeURIComponent("4uRvx1zvw6NSodkc");
-const cluster = "daily-solution-db.yqjsa.mongodb.net";
-const authSource = "authDB";
-const authMechanism = "DEFAULT";
-let MONGODB_URI =
-    `mongodb+srv://${username}:${password}@${cluster}/?authMechanism=${authMechanism}`;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 console.log("aaa: ", MONGODB_URI);
 const connect = mongoose.connect(MONGODB_URI || 'mongodb://localhost/daily-solution', { useUnifiedTopology: true, useNewUrlParser: true });
@@ -34,25 +26,7 @@ const connect = mongoose.connect(MONGODB_URI || 'mongodb://localhost/daily-solut
 connect.then(db => {
     console.log("Connected Mongo server! ");
 });
-// const { MongoClient } = require("mongodb");
 
-// const client = new MongoClient(uri);
-// async function run() {
-//     try {
-//         await client.connect();
-//         const database = client.db("daily-solution");
-
-//         const ratings = database.collection("users");
-//         const cursor = await ratings.find({}).toArray();
-
-//         console.log("aaa: ", cursor);
-
-//         // cursor.forEach(doc => console.log("aaa: ", doc));
-//     } finally {
-//         // await client.close();
-//     }
-// }
-// run().catch(console.dir);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, 'client/build')));
