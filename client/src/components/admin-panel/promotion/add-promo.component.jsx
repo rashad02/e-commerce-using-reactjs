@@ -126,7 +126,7 @@ const AddPromo = ({ isActivePromo, selectActivePromo, promo =
         // });
 
         isActivePromo(propItem.isActive)
-    }, [isActivePromo]);
+    }, [isActivePromo, promo, location]);
     let { promoId, promoCode, startDate, endDate, discountRate, useTime } = promo
     return (
         <div className="form-container">
