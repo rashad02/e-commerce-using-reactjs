@@ -12,7 +12,7 @@
         "build": "./node_modules/.bin/netlify-lambda build src && cd client && npm run build",
         "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
         "start": "./node_modules/.bin/netlify-lambda serve src",
-        "netlify-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run server && npm run build"
+        "netlify-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.4",
