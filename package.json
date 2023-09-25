@@ -12,7 +12,7 @@
         "build": "cd client && npm run build",
         "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
         "start": "cd server && node server.js",
-        "netlify-postbuild": "cd server && node server.js && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+        "netlify-postbuild": "npm install && npm install --only=dev --no-shrinkwrap && npm run build && npm run server"
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.4",
