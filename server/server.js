@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const serverless = require('serverless-http')
 const path = require('path');
 const mongoose = require('mongoose');
 const promoRouter = require("./routes/promo-routes");
@@ -41,10 +42,10 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, '../client/build')))
 
 
-app.use('/payment/', paymentRouter);
-app.use('/order/', orderRouter);
-app.use('/promo/', promoRouter);
-app.use('/user/', userRoutes);
+app.use('/.netlify/functions/api/payment/', paymentRouter);
+app.use('/.netlify/functions/api/order/', orderRouter);
+app.use('/.netlify/functions/api/promo/', promoRouter);
+app.use('/.netlify/functions/api/user/', userRoutes);
 
 
 app.listen(port, error => {
@@ -58,3 +59,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/public', 'index.html'));
 })
 
+// Export the app and the serverless function
+module.exports = app;
+module.exports.handler = serverless(app);
