@@ -12,7 +12,7 @@ const paymentRouter = require('./routes/payment-routes');
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.URL || 5000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,10 +42,10 @@ if (process.env.NODE_ENV === "production") {
 app.use(express.static(path.join(__dirname, '../client/build')))
 
 
-app.use('/.netlify/functions/api/payment/', paymentRouter);
-app.use('/.netlify/functions/api/order/', orderRouter);
-app.use('/.netlify/functions/api/promo/', promoRouter);
-app.use('/.netlify/functions/api/user/', userRoutes);
+app.use('/payment/', paymentRouter);
+app.use('/order/', orderRouter);
+app.use('/promo/', promoRouter);
+app.use('/user/', userRoutes);
 
 
 app.listen(port, error => {
