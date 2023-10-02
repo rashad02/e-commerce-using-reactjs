@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build && node ./server/server.js"
+  command = "npm run build && sudo node ./server/server.js"
 
 [dev]
   publish = "dist"
