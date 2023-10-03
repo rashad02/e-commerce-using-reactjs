@@ -35,7 +35,6 @@ export const registerUser = async user => {
 
 export const loginUser = async user => {
 
-  console.log("baseUrl: ", baseUrl);
   let userInfo = {};
 
   let loginUser = await axios({
