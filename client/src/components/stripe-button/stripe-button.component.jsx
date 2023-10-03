@@ -8,7 +8,7 @@ import { addOrder } from "../../redux/order/order.util";
 import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 
-const baseUrl = process.env.BASE_URL || ''
+const baseUrl = process.env.REACT_APP_BASE_URL || '';
 
 const StripeCheckoutButton = ({ price, couponCode, setPromoList }) => {
     const priceForStripe = price;
