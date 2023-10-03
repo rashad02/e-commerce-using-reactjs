@@ -3,10 +3,10 @@ const bcrypt = require('bcrypt');
 const crypto = require("crypto");
 const User = require('../models/users');
 
-let userRoutes = express.Router()
+const userRouter = express.Router()
 
 
-userRoutes.get('/', async (request, response) => {
+userRouter.get('/', async (request, response) => {
   let responseData = {
     success: false,
     data: {},
@@ -43,7 +43,7 @@ userRoutes.get('/', async (request, response) => {
   }
 })
 // Login
-userRoutes.post('/login', async (request, response) => {
+userRouter.post('/login', async (request, response) => {
   let responseData = {
     success: false,
     data: {},
@@ -90,7 +90,7 @@ userRoutes.post('/login', async (request, response) => {
 })
 
 // Register
-userRoutes.post('/register', async (request, response) => {
+userRouter.post('/register', async (request, response) => {
   let responseData = {
     success: false,
     data: {},
@@ -146,4 +146,4 @@ userRoutes.post('/register', async (request, response) => {
 })
 
 // Export
-module.exports = userRoutes
+module.exports = userRouter
