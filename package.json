@@ -12,7 +12,7 @@
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
         "build": "cd client && npm run build",
         "start": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-        "heroku-postbuild": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build npm run client"
+        "heroku-postbuild": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && npm run client"
     },
     "dependencies": {
         "@netlify/functions": "^1.6.0",
