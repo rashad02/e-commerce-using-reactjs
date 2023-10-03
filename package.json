@@ -7,11 +7,11 @@
     },
     "proxy": "http://localhost:5000",
     "scripts": {
-        "server": "nodemon index.js",
+        "server": "cd server && nodemon server.js",
         "client": "npm run start --prefix ../client",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
         "build": "cd client && npm run build",
-        "start": "npm install && cd server && node server.js",
+        "start": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
         "heroku-postbuild": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
     },
     "dependencies": {
