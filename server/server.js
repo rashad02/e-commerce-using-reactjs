@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const serverless = require('serverless-http')
 const path = require('path');
 const mongoose = require('mongoose');
 const promoRouter = require("./routes/promo-routes");
@@ -61,4 +60,4 @@ app.get('*', (req, res) => {
 
 // Export the app and the serverless function
 module.exports = app;
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
