@@ -70,7 +70,7 @@ export const getUser = async userId => {
   let user = null;
 
   await axios({
-    url: baseUrl + `/user/`,
+    url: baseUrl + '/user',
     method: 'get',
     headers: {
       'Content-Type': 'application/json'
