@@ -8,7 +8,7 @@ const userRoutes = require("./routes/user-routes");
 const orderRouter = require('./routes/order-routes');
 const paymentRouter = require('./routes/payment-routes');
 
-if (process.env.NODE_ENV !== 'production') require('dotenv').config();
+if (process.env.REACT_APP_NODE_ENV !== 'production') require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 5000;
