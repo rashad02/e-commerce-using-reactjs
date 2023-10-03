@@ -61,13 +61,10 @@ import './add-promo.styles.scss';
 
 const AddPromo = ({ isActivePromo, selectActivePromo, promo =
     {}, location }) => {
-    console.log("wow: ", promo, location)
     let handleChange = event => {
 
         const { name, value } = event.target;
-        console.log("wow: ", name, value, location)
         promo[name] = value;
-        console.log("wow: ", promo)
     }
 
     let handleSubmit = event => {

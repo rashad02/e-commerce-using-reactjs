@@ -11,7 +11,6 @@ import withRouter from "../../components/withRouterComp";
 import "./admin-dashboard.scss";
 
 const Dashboard = ({ router }) => {
-    console.log("aaa", router);
     const { location } = router;
     return (
         <>

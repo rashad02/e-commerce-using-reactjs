@@ -20,7 +20,6 @@ app.use(cors());
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
-console.log("aaa: ", MONGODB_URI);
 const connect = mongoose.connect(MONGODB_URI || 'mongodb://localhost/daily-solution', { useUnifiedTopology: true, useNewUrlParser: true });
 
 connect.then(db => {

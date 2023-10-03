@@ -120,8 +120,6 @@ promoRouter.put('/', async (request, response) => {
         if (document) {
             Promo.updateOne(query, { $set: updateData }, (error, document) => {
                 if (document) {
-
-                    console.log("document", document);
                     responseData.promoCode = updateData.promoCode || "";
                     responseData.success = true;
 

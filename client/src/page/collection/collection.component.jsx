@@ -10,8 +10,6 @@ const CollectionPage = ({ collection, setCollectionId }) => {
     let params = "";
     params = useParams();
 
-    console.log("a", params);
-
     useEffect(() => {
         // Update the document title using the browser API
         setCollectionId(params.collectionId);
