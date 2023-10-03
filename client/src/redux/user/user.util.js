@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = process.env.baseUrl || ''
+const baseUrl = process.env.BASE_URL || '';
 export const registerUser = async user => {
 
   let userInfo = {};

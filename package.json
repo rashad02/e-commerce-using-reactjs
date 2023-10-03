@@ -8,11 +8,11 @@
     "proxy": "http://localhost:5000",
     "scripts": {
         "server": "npm install && cd server && nodemon server.js",
-        "client": "npm run start --prefix ./client",
+        "client": "cd client && npm run start",
         "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-        "build": "cd client && npm run build",
+        "build": "cd client && npm install && npm run build",
         "start": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
-        "heroku-postbuild": "npm run server && cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build && npm run client"
+        "heroku-postbuild": "npm run server &&  npm run build && npm run client"
     },
     "dependencies": {
         "@netlify/functions": "^1.6.0",
