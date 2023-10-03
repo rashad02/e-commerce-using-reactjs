@@ -6,7 +6,7 @@ import logger from "redux-logger";
 import rootReducer from "./root-reducer";
 
 const middlewares = [];
-
+console.log("aa: ", process.env.REACT_APP_NODE_ENV, process.env);
 if (process.env.REACT_APP_NODE_ENV === 'development') {
     middlewares.push(logger);
 }
